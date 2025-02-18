@@ -1,5 +1,5 @@
-import { useState } from "react";
-import Link from "next/link";
+import { useState } from 'react';
+import Link from 'next/link';
 import {
   Table as TableMui,
   TableBody,
@@ -10,10 +10,10 @@ import {
   Button,
   Avatar,
   Tooltip,
-} from "@mui/material";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import { User } from "@/types/users";
+} from '@mui/material';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import { User } from '@/types/users';
 
 type TableProps = {
   rows?: User[];
@@ -54,22 +54,9 @@ export const Table: React.FC<TableProps> = ({ rows }) => {
               >
                 Ver detalle
               </Button>
-              <Tooltip
-                title={
-                  favorites[row.id]
-                    ? "Quitar de favoritos"
-                    : "Agregar a favoritos"
-                }
-              >
-                <IconButton
-                  color="error"
-                  onClick={() => handleFavoriteToggle(row.id)}
-                >
-                  {favorites[row.id] ? (
-                    <FavoriteIcon />
-                  ) : (
-                    <FavoriteBorderIcon />
-                  )}
+              <Tooltip title={favorites[row.id] ? 'Quitar de favoritos' : 'Agregar a favoritos'}>
+                <IconButton color="error" onClick={() => handleFavoriteToggle(row.id)}>
+                  {favorites[row.id] ? <FavoriteIcon /> : <FavoriteBorderIcon />}
                 </IconButton>
               </Tooltip>
             </TableCell>
