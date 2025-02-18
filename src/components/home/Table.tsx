@@ -35,7 +35,9 @@ export const Table: React.FC<TableProps> = ({ rows }) => {
         <TableRow>
           <TableCell>Usuario</TableCell>
           <TableCell>Avatar</TableCell>
-          <TableCell>Acción</TableCell>
+          <TableCell sx={{ width: 180 }} align="right">
+            Acción
+          </TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
@@ -54,7 +56,10 @@ export const Table: React.FC<TableProps> = ({ rows }) => {
               >
                 Ver detalle
               </Button>
-              <Tooltip title={favorites[row.id] ? 'Quitar de favoritos' : 'Agregar a favoritos'}>
+              <Tooltip
+                placement="right"
+                title={favorites[row.id] ? 'Quitar de favoritos' : 'Agregar a favoritos'}
+              >
                 <IconButton color="error" onClick={() => handleFavoriteToggle(row.id)}>
                   {favorites[row.id] ? <FavoriteIcon /> : <FavoriteBorderIcon />}
                 </IconButton>
