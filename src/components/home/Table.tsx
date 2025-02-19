@@ -10,46 +10,16 @@ import {
   Button,
   Avatar,
   Tooltip,
-  Skeleton,
-  Box,
 } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { User } from '@/types/users';
 import dynamic from 'next/dynamic';
+import { TableRowSkeleton } from './TableRowSkeleton';
 
 type TableProps = {
   rows?: User[];
   isLoading: boolean;
-};
-
-const TableRowSkeleton = () => {
-  const widths = [60, 70, 80, 90, 100, 110];
-  const randomWidth = widths[Math.floor(Math.random() * widths.length)];
-
-  return (
-    <TableRow>
-      <TableCell>
-        <Skeleton variant="text" sx={{ fontSize: '1rem' }} width={randomWidth} />
-      </TableCell>
-      <TableCell>
-        <Skeleton variant="circular" width={40} height={40} />
-      </TableCell>
-      <TableCell>
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'flex-end',
-            alignItems: 'center',
-            gap: '1rem',
-          }}
-        >
-          <Skeleton variant="text" sx={{ fontSize: '1rem' }} width={90} />
-          <Skeleton variant="circular" width={24} height={24} />
-        </Box>
-      </TableCell>
-    </TableRow>
-  );
 };
 
 const DynamicTableRowSkeleton = dynamic(() => Promise.resolve(TableRowSkeleton), { ssr: false });
