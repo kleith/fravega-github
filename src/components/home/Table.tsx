@@ -1,22 +1,19 @@
-import { useState } from 'react';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import {
   Table as TableMui,
   TableBody,
   TableCell,
   TableHead,
   TableRow,
-  IconButton,
   Button,
   Avatar,
-  Tooltip,
 } from '@mui/material';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import { User } from '@/types/users';
-import dynamic from 'next/dynamic';
-import { TableRowSkeleton } from './TableRowSkeleton';
 import { Routes } from '@/constants/routes';
+import { useFavorite } from '@/hooks/useFavorite';
+import { User } from '@/types/users';
+import { TableRowSkeleton } from './TableRowSkeleton';
+import { FavoriteButton } from '../FavoriteButton';
 
 type TableProps = {
   rows?: User[];
@@ -26,13 +23,10 @@ type TableProps = {
 const DynamicTableRowSkeleton = dynamic(() => Promise.resolve(TableRowSkeleton), { ssr: false });
 
 export const Table: React.FC<TableProps> = ({ rows, isLoading = false }) => {
-  const [favorites, setFavorites] = useState<{ [key: number]: boolean }>({});
+  const { favorites, toggleFavorite } = useFavorite();
 
-  const handleFavoriteToggle = (id: number) => {
-    setFavorites((prevFavorites) => ({
-      ...prevFavorites,
-      [id]: !prevFavorites[id],
-    }));
+  const getIsFavorite = (id: number) => {
+    return favorites.some((fav) => fav.id === id);
   };
 
   return (
@@ -64,14 +58,11 @@ export const Table: React.FC<TableProps> = ({ rows, isLoading = false }) => {
                   >
                     Ver detalle
                   </Button>
-                  <Tooltip
-                    placement="right"
-                    title={favorites[row.id] ? 'Quitar de favoritos' : 'Agregar a favoritos'}
-                  >
-                    <IconButton color="error" onClick={() => handleFavoriteToggle(row.id)}>
-                      {favorites[row.id] ? <FavoriteIcon /> : <FavoriteBorderIcon />}
-                    </IconButton>
-                  </Tooltip>
+                  <FavoriteButton
+                    align="right"
+                    isFavorite={getIsFavorite(row.id)}
+                    onClick={() => toggleFavorite({ id: row.id, name: row.login })}
+                  />
                 </TableCell>
               </TableRow>
             ))}

@@ -4,34 +4,27 @@ import {
   Box,
   Button,
   Divider,
-  IconButton,
   List,
   ListItem,
   ListItemAvatar,
   ListItemText,
-  Tooltip,
   Typography,
 } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { Routes } from '@/constants/routes';
+import { useFavorite } from '@/hooks/useFavorite';
 import { UserDetail } from '@/types/user';
 import { Paper } from '../Paper';
-import { useState } from 'react';
+import { FavoriteButton } from '../FavoriteButton';
 
 type DetailsProps = {
   user: UserDetail;
 };
 
 export const Details: React.FC<DetailsProps> = ({ user }) => {
-  const [favorite, setFavorite] = useState<boolean>(false);
-
-  const handleFavoriteToggle = (id: number) => {
-    setFavorite((prevFavorite) => !prevFavorite);
-    console.log(id);
-  };
+  const { favorites, toggleFavorite } = useFavorite();
+  const isFavorite = favorites.some((fav) => fav.id === user.id);
 
   return (
     <>
@@ -61,14 +54,11 @@ export const Details: React.FC<DetailsProps> = ({ user }) => {
                   gap: '1rem',
                 }}
               >
-                <Tooltip
-                  placement="left"
-                  title={favorite ? 'Quitar de favoritos' : 'Agregar a favoritos'}
-                >
-                  <IconButton color="error" onClick={() => handleFavoriteToggle(user.id)}>
-                    {favorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
-                  </IconButton>
-                </Tooltip>
+                <FavoriteButton
+                  align="left"
+                  isFavorite={isFavorite}
+                  onClick={() => toggleFavorite({ id: user.id, name: user.login })}
+                />
                 <Button
                   variant="contained"
                   color="secondary"
