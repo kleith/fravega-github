@@ -46,8 +46,8 @@ Abrir [http://localhost:3000](http://localhost:3000) con tu navegador para ver e
 
 ## Tareas
 
-- `/` (CSR):
-  - Buscador para filtrar por nombre de usuario
+- ~~`/` (CSR):~~
+  - ~~Buscador para filtrar por nombre de usuario~~
   - ~~Tabla con: nombre y avatar~~
     - ~~Link del usuario a `/detail/:user`~~
     - ~~Botón para agregar como favorito al usuario~~

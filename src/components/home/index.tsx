@@ -14,7 +14,7 @@ import { Table } from './Table';
 import { useHome } from './Home.hook';
 
 export const Home = () => {
-  const { users } = useHome();
+  const { users, isLoading, handleChange } = useHome();
 
   return (
     <>
@@ -32,6 +32,7 @@ export const Home = () => {
               type="text"
               id="user-search"
               placeholder="Buscar usuario"
+              onChange={handleChange}
               endAdornment={
                 <InputAdornment position="end">
                   <SearchIcon />
@@ -41,7 +42,7 @@ export const Home = () => {
           </FormControl>
         </Toolbar>
         <Divider />
-        <Table rows={users} />
+        <Table rows={users} isLoading={isLoading} />
       </TableContainer>
     </>
   );

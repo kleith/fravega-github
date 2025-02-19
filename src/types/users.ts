@@ -1,4 +1,4 @@
-export type User = {
+export interface User {
   login: string;
   id: number;
   node_id: string;
@@ -18,6 +18,6 @@ export type User = {
   type: string;
   user_view_type: string;
   site_admin: boolean;
-};
+}
 
 export type Users = User[];

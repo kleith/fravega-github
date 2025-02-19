@@ -1,4 +1,4 @@
-export type UserDetail = {
+export interface UserDetail {
   login: string;
   id: number;
   node_id: string;
@@ -32,4 +32,4 @@ export type UserDetail = {
   following: number;
   created_at: string;
   updated_at: string;
-};
+}
