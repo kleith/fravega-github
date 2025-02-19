@@ -4,7 +4,6 @@ import {
   FormControl,
   InputAdornment,
   OutlinedInput,
-  Paper,
   TableContainer,
   Toolbar,
   Typography,
@@ -12,6 +11,7 @@ import {
 import SearchIcon from '@mui/icons-material/Search';
 import { Table } from './Table';
 import { useHome } from './Home.hook';
+import { Paper } from '../Paper';
 
 export const Home = () => {
   const { users, isLoading, handleChange } = useHome();

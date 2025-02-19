@@ -21,3 +21,13 @@ export const findUsers = async (search: string) => {
     throw error;
   }
 };
+
+export const getUser = async (userId: string) => {
+  try {
+    const response = await axios.get(`/users/${userId}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching user from GitHub:', error);
+    throw error;
+  }
+};

@@ -16,6 +16,7 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { User } from '@/types/users';
 import dynamic from 'next/dynamic';
 import { TableRowSkeleton } from './TableRowSkeleton';
+import { Routes } from '@/constants/routes';
 
 type TableProps = {
   rows?: User[];
@@ -59,7 +60,7 @@ export const Table: React.FC<TableProps> = ({ rows, isLoading = false }) => {
                     color="primary"
                     variant="text"
                     LinkComponent={Link}
-                    href={`details/${row.login}`}
+                    href={`${Routes.details}/${row.login}`}
                   >
                     Ver detalle
                   </Button>
