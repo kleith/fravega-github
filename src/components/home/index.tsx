@@ -33,6 +33,7 @@ export const Home = () => {
               id="user-search"
               placeholder="Buscar usuario"
               onChange={handleChange}
+              autoComplete="off"
               endAdornment={
                 <InputAdornment position="end">
                   <SearchIcon />
