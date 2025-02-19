@@ -1,18 +1,24 @@
+import axios from 'axios';
 import { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import { Details } from '@/components/details';
 import { UserDetail } from '@/types/user';
-import axios from 'axios';
-import { getUser } from '@/services/github.service';
+import { Repositories } from '@/types/repos';
+import { getRepositories, getUser } from '@/services/github.service';
 
-const DetailsPage: NextPage<{ user: UserDetail }> = ({ user }) => {
+type DetailsPageProps = {
+  user: UserDetail;
+  repos: Repositories;
+};
+
+const DetailsPage: NextPage<DetailsPageProps> = ({ user, repos }) => {
   return (
     <>
       <Head>
         <title>Fravega Challange - Detalle</title>
         <meta name="description" content="Fravega Challange - Detalle" />
       </Head>
-      <Details user={user} />
+      <Details user={user} repos={repos} />
     </>
   );
 };
@@ -21,11 +27,15 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const userId = params?.userId as string;
 
   try {
-    const userData = await getUser(userId);
+    const [userData, userRepositories] = await Promise.all([
+      getUser(userId),
+      getRepositories(userId),
+    ]);
 
     return {
       props: {
         user: userData,
+        repos: userRepositories,
       },
     };
   } catch (error) {
