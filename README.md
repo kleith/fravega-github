@@ -39,7 +39,8 @@ Instalar y correr el servidor:
 
 ```bash
 npm install
-npm run dev
+npm run build
+npm run start
 ```
 
 Abrir [http://localhost:3000](http://localhost:3000) con tu navegador para ver el resultado.
