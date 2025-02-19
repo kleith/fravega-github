@@ -1,26 +1,38 @@
-import { UserDetail } from '@/types/user';
+import Link from 'next/link';
 import {
   Avatar,
   Box,
   Button,
   Divider,
+  IconButton,
   List,
   ListItem,
   ListItemAvatar,
   ListItemText,
+  Tooltip,
   Typography,
 } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
-import Link from 'next/link';
-import { Routes } from '@/constants/routes';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import { Routes } from '@/constants/routes';
+import { UserDetail } from '@/types/user';
 import { Paper } from '../Paper';
+import { useState } from 'react';
 
 type DetailsProps = {
   user: UserDetail;
 };
 
 export const Details: React.FC<DetailsProps> = ({ user }) => {
+  const [favorite, setFavorite] = useState<boolean>(false);
+
+  const handleFavoriteToggle = (id: number) => {
+    setFavorite((prevFavorite) => !prevFavorite);
+    console.log(id);
+  };
+
   return (
     <>
       <Box py={2}>
@@ -41,15 +53,32 @@ export const Details: React.FC<DetailsProps> = ({ user }) => {
         <List>
           <ListItem
             secondaryAction={
-              <Button
-                variant="contained"
-                color="secondary"
-                LinkComponent={Link}
-                href={user.html_url}
-                startIcon={<GitHubIcon />}
+              <Box
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  gap: '1rem',
+                }}
               >
-                Ver en github
-              </Button>
+                <Tooltip
+                  placement="left"
+                  title={favorite ? 'Quitar de favoritos' : 'Agregar a favoritos'}
+                >
+                  <IconButton color="error" onClick={() => handleFavoriteToggle(user.id)}>
+                    {favorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+                  </IconButton>
+                </Tooltip>
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  LinkComponent={Link}
+                  href={user.html_url}
+                  startIcon={<GitHubIcon />}
+                >
+                  Ver en github
+                </Button>
+              </Box>
             }
           >
             <ListItemAvatar>
@@ -81,7 +110,6 @@ export const Details: React.FC<DetailsProps> = ({ user }) => {
           <ListItem>
             <ListItemText primary="Repositorios" secondary={user.repos_url} />
           </ListItem>
-          {/* <Divider component="li" /> */}
         </List>
       </Paper>
     </>

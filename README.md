@@ -51,6 +51,6 @@ Abrir [http://localhost:3000](http://localhost:3000) con tu navegador para ver e
   - ~~Tabla con: nombre y avatar~~
     - ~~Link del usuario a `/detail/:user`~~
     - ~~Botón para agregar como favorito al usuario~~
-- `/detail/:user` (SSR):
+- ~~`/detail/:user` (SSR):~~
   - ~~Mostrar los detalles del usuario: nombre, avatar, bio, repositorio, etc~~
-  - Botón para mostrar y agregar como favorito al usuario
+  - ~~Botón para mostrar y agregar como favorito al usuario~~
